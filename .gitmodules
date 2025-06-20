@@ -1,0 +1,3 @@
+[submodule "audit-ai-ecommerce"]
+	path = audit-ai-ecommerce
+	url = https://github.com/sebasu66/audit-ai-ecommerce.git
