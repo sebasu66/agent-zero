@@ -7,6 +7,7 @@ To begin with Agent Zero, follow the links below for detailed guides on various 
 - **[Architecture Overview](architecture.md):** Understand the internal workings of the framework.
 - **[Contributing](contribution.md):** Learn how to contribute to the Agent Zero project.
 - **[Troubleshooting and FAQ](troubleshooting.md):** Find answers to common issues and questions.
+- **[Remote Backup Server](remote_backup_server.md):** Optional service to keep your settings and files in sync.
 
 ### Your experience with Agent Zero starts now!
 

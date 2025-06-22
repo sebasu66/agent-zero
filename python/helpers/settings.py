@@ -70,6 +70,8 @@ class Settings(TypedDict):
     mcp_client_tool_timeout: int
     mcp_server_enabled: bool
     mcp_server_token: str
+    backup_enabled: bool
+    backup_url: str
 
 
 class PartialSettings(Settings, total=False):
@@ -770,6 +772,47 @@ def convert_out(settings: Settings) -> SettingsOutput:
         "tab": "mcp",
     }
 
+    backup_fields: list[SettingsField] = []
+
+    backup_fields.append(
+        {
+            "id": "backup_enabled",
+            "title": "Enable Backup Sync",
+            "description": "Automatically sync settings and memory with a remote backup server.",
+            "type": "switch",
+            "value": settings["backup_enabled"],
+        }
+    )
+
+    backup_fields.append(
+        {
+            "id": "backup_url",
+            "title": "Backup Server URL",
+            "description": "URL of the remote backup API.",
+            "type": "text",
+            "value": settings["backup_url"],
+        }
+    )
+
+    backup_fields.append(
+        {
+            "id": "backup_sync_now",
+            "title": "Sync Now",
+            "description": "Trigger immediate synchronization with the backup server.",
+            "type": "button",
+            "value": "Sync Now",
+            "action": "backup_sync_now",
+        }
+    )
+
+    backup_section: SettingsSection = {
+        "id": "backup",
+        "title": "Remote Backup",
+        "description": "Configure remote backup server.",
+        "fields": backup_fields,
+        "tab": "developer",
+    }
+
     # Add the section to the result
     result: SettingsOutput = {
         "sections": [
@@ -784,6 +827,7 @@ def convert_out(settings: Settings) -> SettingsOutput:
             auth_section,
             mcp_client_section,
             mcp_server_section,
+            backup_section,
             dev_section,
         ]
     }
@@ -958,6 +1002,8 @@ def get_default_settings() -> Settings:
         mcp_client_tool_timeout=120,
         mcp_server_enabled=False,
         mcp_server_token=create_auth_token(),
+        backup_enabled=False,
+        backup_url="",
     )
 
 

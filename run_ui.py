@@ -235,6 +235,8 @@ def init_a0():
     initialize.initialize_mcp()
     # start job loop
     initialize.initialize_job_loop()
+    # start backup sync
+    initialize.initialize_backup_sync()
 
     # only wait for init chats, otherwise they would seem to dissapear for a while on restart
     init_chats.result_sync()
