@@ -287,6 +287,9 @@ const settingsModalProxy = {
 
         if (field.id === "mcp_servers_config") {
             openModal("settings/mcp/client/mcp-servers.html");
+        } else if (field.action === 'backup_sync_now') {
+            await fetch('/backup_sync_now', {method: 'POST'});
+            showToast('Backup sync triggered', 'success');
         }
     }
 };
@@ -454,6 +457,10 @@ document.addEventListener('alpine:init', function () {
                     this.revealToken(field);
                 } else if (field.action === 'generate_token') {
                     this.generateToken(field);
+                } else if (field.action === 'backup_sync_now') {
+                    fetch('/backup_sync_now', {method: 'POST'}).then(() => {
+                        showToast('Backup sync triggered', 'success');
+                    });
                 } else {
                     console.warn('Unknown button action:', field.action);
                 }
