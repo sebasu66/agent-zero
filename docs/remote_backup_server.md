@@ -37,3 +37,21 @@ if __name__ == '__main__':
 
 Store the server separately and configure `backup_url` in Agent Zero to point to
 its base URL (e.g. `http://your-vps:8000`).
+
+## Docker Deployment
+
+A ready-to-use `Dockerfile` is provided in `docker/backup_server/`.
+To build and run the server:
+
+```bash
+# Build the image
+cd docker/backup_server
+docker build -t a0-backup-server .
+
+# Start the server and persist backups in ./data
+mkdir -p data
+docker run -d -p 8000:8000 -v $(pwd)/data:/srv/data a0-backup-server
+```
+
+This container exposes the same `/backup` endpoints on port `8000`.
+Configure `backup_url` in Agent Zero to point to your container's URL.
