@@ -1,0 +1,8 @@
+# Build the backup server image
+cd docker/backup_server
+
+docker build -t a0-backup-server:local .
+
+# Run with the backups stored in ./data
+# (create the data directory on the host)
+docker run -d -p 8000:8000 -v $(pwd)/data:/srv/data a0-backup-server:local

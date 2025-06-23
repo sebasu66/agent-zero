@@ -162,3 +162,11 @@ def _set_runtime_config(config: AgentConfig, set: settings.Settings):
     #     dman.start_container()
 
     # config.code_exec_ssh_pass = asyncio.run(rfc_exchange.get_root_password())
+
+def initialize_backup_sync():
+    set = settings.get_settings()
+    async def start_sync():
+        from python.helpers import backup_sync
+        if set["backup_enabled"] and set["backup_url"]:
+            await backup_sync.start(set["backup_url"])
+    return defer.DeferredTask("BackupSync").start_task(start_sync)
